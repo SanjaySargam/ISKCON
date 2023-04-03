@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Devotee"
+            android:text="New Student"
             android:textColor="@color/black"
             android:layout_gravity="center"
             android:textStyle="bold"
@@ -29,11 +29,60 @@
             android:inputType="textPersonName"
             />
         <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email-Id"
+            android:inputType="textEmailAddress"
+            />
+        <EditText
             android:id="@+id/etNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Mobile Number"
             android:inputType="number"
+            />
+        <EditText
+            android:id="@+id/etAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Address"
+            android:inputType="text"
+            />
+        <EditText
+            android:id="@+id/etCollege"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="College"
+            android:inputType="text"
+            />
+        <EditText
+            android:id="@+id/etDOB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="DOB"
+            android:inputType="date"
+            />
+        <EditText
+            android:id="@+id/etInsta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Instagram Id"
+            android:inputType="text"
+            />
+        <EditText
+            android:id="@+id/etEducation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Education"
+            android:inputType="text"
+            />
+        <EditText
+            android:id="@+id/etOccupation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Occupation"
+            android:inputType="text"
             />
         <Button
             android:id="@+id/btnAdd"
