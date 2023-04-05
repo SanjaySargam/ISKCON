@@ -62,19 +62,21 @@ class StudentRegistrationActivity : AppCompatActivity() {
                 val occupationStr=occupation.text.toString()
                 FirebaseQuery.createStudent(devoteeName,emailStr,mobile_number,addressStr,collegeStr,DOBStr,instaStr,educationStr,occupationStr,object : MyCompleteListener{
                     override fun onSuccess() {
-                        FirebaseQuery.addStudentToPreacher(devoteeName,emailStr,mobile_number,addressStr,collegeStr,DOBStr,instaStr,educationStr,occupationStr,object : MyCompleteListener{
-                            override fun onSuccess() {
-                                progressDialog!!.dismiss()
-                                clear(name,email,phone,address,college,dob,insta,education,occupation)
-                                Toast.makeText(baseContext,"Data added successfully", Toast.LENGTH_SHORT).show()
-                            }
-
-                            override fun onFailure() {
-                                progressDialog!!.dismiss()
-                                Toast.makeText(baseContext,"Error 101", Toast.LENGTH_SHORT).show()
-                            }
-
-                        })
+                        clear(name,email,phone,address,college,dob,insta,education,occupation)
+                        progressDialog!!.dismiss()
+                        Toast.makeText(baseContext,"Success", Toast.LENGTH_SHORT).show()
+//                        FirebaseQuery.addStudentToPreacher(devoteeName,emailStr,mobile_number,addressStr,collegeStr,DOBStr,instaStr,educationStr,occupationStr,object : MyCompleteListener{
+//                            override fun onSuccess() {
+//                                progressDialog!!.dismiss()
+//                                Toast.makeText(baseContext,"Data added successfully", Toast.LENGTH_SHORT).show()
+//                            }
+//
+//                            override fun onFailure() {
+//                                progressDialog!!.dismiss()
+//                                Toast.makeText(baseContext,"Error 101", Toast.LENGTH_SHORT).show()
+//                            }
+//
+//                        })
                     }
                     override fun onFailure() {
                         progressDialog!!.dismiss()

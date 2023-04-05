@@ -33,13 +33,6 @@ object FirebaseQuery {
         val batch: WriteBatch? = firestore?.batch()
         batch?.set(userDoc!!, devoteeData)
 
-        val countDoc: DocumentReference? =
-            firestore?.collection("STUDENTS")
-                ?.document("TOTAL_STUDENTS")
-
-        if (countDoc != null) {
-            batch?.update(countDoc, "COUNT", FieldValue.increment(1) )
-        }
         batch?.commit()?.addOnSuccessListener {
             completeListener.onSuccess()
 
