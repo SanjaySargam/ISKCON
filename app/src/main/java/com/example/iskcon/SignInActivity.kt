@@ -17,13 +17,11 @@ class SignInActivity : AppCompatActivity() {
     private var mAuth: FirebaseAuth? = null
     private var progressDialog: Dialog? = null
     private var dialogText: TextView? = null
-    private var spanned:TextView?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
         email = findViewById(R.id.email)
         pass = findViewById(R.id.password)
-        spanned=findViewById(R.id.span)
         val loginBtn = findViewById<Button>(R.id.loginBtn)
         mAuth = FirebaseAuth.getInstance()
 

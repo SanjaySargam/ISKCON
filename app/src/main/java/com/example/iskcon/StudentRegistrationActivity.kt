@@ -1,50 +1,45 @@
 package com.example.iskcon
 
 import android.app.Dialog
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 
-class CreateDevoteeProfile : Fragment() {
-    private lateinit var name:EditText
-    private lateinit var email:EditText
-    private lateinit var phone:EditText
-    private lateinit var address:EditText
-    private lateinit var college:EditText
-    private lateinit var dob:EditText
-    private lateinit var insta:EditText
-    private lateinit var education:EditText
-    private lateinit var occupation:EditText
-    private lateinit var addBtn:Button
+class StudentRegistrationActivity : AppCompatActivity() {
+    private lateinit var name: EditText
+    private lateinit var email: EditText
+    private lateinit var phone: EditText
+    private lateinit var address: EditText
+    private lateinit var college: EditText
+    private lateinit var dob: EditText
+    private lateinit var insta: EditText
+    private lateinit var education: EditText
+    private lateinit var occupation: EditText
+    private lateinit var addBtn: Button
     private var progressDialog: Dialog? = null
     private var dialogText: TextView? = null
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val v=inflater.inflate(R.layout.fragment_create_devotee_profile, container, false)
-
-        name=v.findViewById(R.id.etName)
-        email=v.findViewById(R.id.etEmail)
-        phone=v.findViewById(R.id.etNumber)
-        address=v.findViewById(R.id.etAddress)
-        college=v.findViewById(R.id.etCollege)
-        dob=v.findViewById(R.id.etDOB)
-        insta=v.findViewById(R.id.etInsta)
-        education=v.findViewById(R.id.etEducation)
-        occupation=v.findViewById(R.id.etOccupation)
-        addBtn=v.findViewById(R.id.btnAdd)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_student_registration)
+        name=findViewById(R.id.etName)
+        email=findViewById(R.id.etEmail)
+        phone=findViewById(R.id.etNumber)
+        address=findViewById(R.id.etAddress)
+        college=findViewById(R.id.etCollege)
+        dob=findViewById(R.id.etDOB)
+        insta=findViewById(R.id.etInsta)
+        education=findViewById(R.id.etEducation)
+        occupation=findViewById(R.id.etOccupation)
+        addBtn=findViewById(R.id.btnAdd)
 
 
 
-        progressDialog = Dialog(requireContext())
+        progressDialog = Dialog(this)
         progressDialog!!.setContentView(R.layout.dialog_layout)
         progressDialog!!.setCancelable(false)
         progressDialog!!.getWindow()!!
@@ -71,36 +66,28 @@ class CreateDevoteeProfile : Fragment() {
                             override fun onSuccess() {
                                 progressDialog!!.dismiss()
                                 clear(name,email,phone,address,college,dob,insta,education,occupation)
-                                Toast.makeText(context,"Data added successfully",Toast.LENGTH_SHORT).show()
+                                Toast.makeText(baseContext,"Data added successfully", Toast.LENGTH_SHORT).show()
                             }
 
                             override fun onFailure() {
                                 progressDialog!!.dismiss()
-                                Toast.makeText(context,"Error 101",Toast.LENGTH_SHORT).show()
+                                Toast.makeText(baseContext,"Error 101", Toast.LENGTH_SHORT).show()
                             }
 
                         })
                     }
                     override fun onFailure() {
                         progressDialog!!.dismiss()
-                        Toast.makeText(context,"Error 101",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(baseContext,"Error 101", Toast.LENGTH_SHORT).show()
                     }
 
                 })
             }
             else{
-                Toast.makeText(context,"Error",Toast.LENGTH_SHORT).show()
+                Toast.makeText(baseContext,"Error", Toast.LENGTH_SHORT).show()
             }
         }
-
-        // Inflate the layout for this fragment
-        return v;
     }
-
-
-
-
-}
 fun validate(name:EditText,email: EditText,number: EditText,address: EditText,college: EditText,DOB:EditText,insta: EditText,education: EditText,occupation: EditText):Boolean{
     val devoteeName=name.text.toString()
     val emailStr=email.text.toString()
@@ -175,3 +162,4 @@ data class Student(
     val education:String,
     val occupation:String
 )
+}

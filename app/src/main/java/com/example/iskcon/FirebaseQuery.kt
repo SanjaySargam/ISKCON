@@ -1,6 +1,7 @@
 package com.example.iskcon
 
 import android.content.ContentValues.TAG
+import android.text.Editable
 import android.util.ArrayMap
 import android.util.Log
 import com.google.android.gms.tasks.OnFailureListener
@@ -26,7 +27,7 @@ object FirebaseQuery {
 
         val userDoc: DocumentReference? =
             firestore?.collection("STUDENTS")?.document(
-                name
+                number
             )
 
         val batch: WriteBatch? = firestore?.batch()
@@ -49,8 +50,20 @@ object FirebaseQuery {
             FirebaseAuth.getInstance().uid?.let {
                 firestore?.collection("PREACHERS")?.document(it)
             }
-        userDoc?.collection("STUDENTS")?.document()
-            ?.set(Student(name,email,number,address,college,dob,insta,education,occupation))
+        userDoc?.collection("STUDENTS")?.document(number)
+            ?.set(
+                StudentRegistrationActivity.Student(
+                    name,
+                    email,
+                    number,
+                    address,
+                    college,
+                    dob,
+                    insta,
+                    education,
+                    occupation
+                )
+            )
             ?.addOnCompleteListener {
                 if (it.isSuccessful) {
                     // Increment the field value by 1
@@ -86,6 +99,61 @@ object FirebaseQuery {
                     completeListener.onSuccess()
                 })
                 ?.addOnFailureListener(OnFailureListener { e: Exception? -> completeListener.onFailure() })
+        }
+    }
+    fun getMobileNumber(completeListener: MyCompleteListener) :ArrayList<String> {
+        val mobileNoList = ArrayList<String>()
+        firestore?.collection("STUDENTS")?.get()
+            ?.addOnSuccessListener { query ->
+            for (document in query.documents) {
+                val number = document.getString("PHONE")
+                number?.let {
+                    mobileNoList.add(it)
+                }
+            }
+                completeListener.onSuccess()
+        }
+        ?.addOnFailureListener { exception ->
+            // Handle any errors that occur
+            completeListener.onFailure()
+        }
+        return mobileNoList
+    }
+//    fun getName(no:String):String{
+//        val myCollectionRef = firestore?.collection("STUDENTS")?.document(no)
+//        var data = ""
+//
+//        myCollectionRef?.get()?.addOnSuccessListener { querySnapshot ->
+//            // Get the data from the query snapshot and return it as a string
+//            data=querySnapshot.getString("NAME").toString()
+//        }
+//        Log.i("fkjhgj",data)
+//        return data
+//
+////        var name= String()
+////        firestore?.collection("STUDENTS")
+////            ?.document(no)
+////            ?.get()
+////            ?.addOnSuccessListener() {
+////                name= it.getString("NAME").toString()
+////                Log.i("jdjsfh",name)
+////                completeListener.onSuccess()
+////            }
+////            ?.addOnFailureListener {
+////                completeListener.onFailure()
+////            }
+////        return name
+//    }
+    interface FirestoreCallback {
+        fun onDataReceived(data: String)
+    }
+    fun getName(no:String,callback: FirestoreCallback,completeListener: MyCompleteListener){
+        val myCollectionRef = firestore?.collection("STUDENTS")?.document(no)
+        myCollectionRef?.get()?.addOnSuccessListener { querySnapshot ->
+            // Get the data from the query snapshot and pass it to the callback
+            val data = querySnapshot.getString("NAME").toString()
+            callback.onDataReceived(data)
+            completeListener.onSuccess()
         }
     }
 
