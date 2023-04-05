@@ -30,19 +30,20 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var epoxyControllerCategory: CategoryController
-    val categories=ArrayList<String>()
+    val categories = ArrayList<String>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        FirebaseQuery.firestore= FirebaseFirestore.getInstance()
+        FirebaseQuery.firestore = FirebaseFirestore.getInstance()
         categories.add("New Student")
         categories.add("Take Attendance")
         setRecyclerView()
     }
-    fun setRecyclerView(){
+
+    fun setRecyclerView() {
         binding.categoryList.apply {
             layoutManager = LinearLayoutManager(context)
         }
@@ -50,7 +51,6 @@ class MainActivity : AppCompatActivity() {
         binding.categoryList.setController(epoxyControllerCategory)
         epoxyControllerCategory.setData(categories)
     }
-
 
 
 //    override fun onSupportNavigateUp(): Boolean {
@@ -61,7 +61,9 @@ class MainActivity : AppCompatActivity() {
 //            }
 
 }
-class CategoryController(private val context: MainActivity) : TypedEpoxyController<ArrayList<String>>() {
+
+class CategoryController(private val context: MainActivity) :
+    TypedEpoxyController<ArrayList<String>>() {
     override fun buildModels(data: ArrayList<String>) {
         data.forEach { myData ->
             CategoryModel_(context)

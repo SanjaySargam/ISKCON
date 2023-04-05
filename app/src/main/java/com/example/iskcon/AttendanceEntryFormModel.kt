@@ -11,7 +11,8 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 
 @EpoxyModelClass
-abstract class AttendanceEntryFormModel : EpoxyModelWithHolder<AttendanceEntryFormModel.ViewHolder>() {
+abstract class AttendanceEntryFormModel :
+    EpoxyModelWithHolder<AttendanceEntryFormModel.ViewHolder>() {
     @EpoxyAttribute
     lateinit var onSaveAttendanceRecord: (devoteeName: String, date: String, isPresent: Boolean) -> Unit
 

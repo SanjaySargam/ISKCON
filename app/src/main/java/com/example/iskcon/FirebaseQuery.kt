@@ -9,14 +9,26 @@ import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 
-var preacher: PreacherModel = PreacherModel("NA", "NA", "NA", "NA","0")
+var preacher: PreacherModel = PreacherModel("NA", "NA", "NA", "NA", "0")
+
 object FirebaseQuery {
     var firestore: FirebaseFirestore? = null
 
-    fun createStudent(name:String,email:String,number:String,address:String,college:String,dob:String,insta:String,education:String,occupation:String,completeListener: MyCompleteListener){
+    fun createStudent(
+        name: String,
+        email: String,
+        number: String,
+        address: String,
+        college: String,
+        dob: String,
+        insta: String,
+        education: String,
+        occupation: String,
+        completeListener: MyCompleteListener
+    ) {
         val devoteeData: MutableMap<String, Any> = ArrayMap()
         devoteeData["NAME"] = name
-        devoteeData["EMAIL-ID"]=email
+        devoteeData["EMAIL-ID"] = email
         devoteeData["PHONE"] = number
         devoteeData["ADDRESS"] = address
         devoteeData["COLLEGE"] = college
@@ -38,7 +50,19 @@ object FirebaseQuery {
 
         }?.addOnFailureListener { completeListener.onFailure() }
     }
-    fun addStudentToPreacher(name:String,email:String,number:String,address:String,college:String,dob:String,insta:String,education:String,occupation:String,completeListener: MyCompleteListener){
+
+    fun addStudentToPreacher(
+        name: String,
+        email: String,
+        number: String,
+        address: String,
+        college: String,
+        dob: String,
+        insta: String,
+        education: String,
+        occupation: String,
+        completeListener: MyCompleteListener
+    ) {
         val userDoc =
             FirebaseAuth.getInstance().uid?.let {
                 firestore?.collection("PREACHERS")?.document(it)
@@ -84,35 +108,38 @@ object FirebaseQuery {
                 ?.document(it)
                 ?.get()
                 ?.addOnSuccessListener(OnSuccessListener<DocumentSnapshot> { documentSnapshot: DocumentSnapshot ->
-                    preacher.name=documentSnapshot.getString("NAME").toString()
-                    preacher.email=documentSnapshot.getString("EMAIL-ID").toString()
-                    preacher.phone=documentSnapshot.getString("PHONE").toString()
-                    preacher.instaId=documentSnapshot.getString("INSTA").toString()
-                    preacher.studentEnrolled=documentSnapshot.getString("STUDENTS_ENROLLED").toString()
+                    preacher.name = documentSnapshot.getString("NAME").toString()
+                    preacher.email = documentSnapshot.getString("EMAIL-ID").toString()
+                    preacher.phone = documentSnapshot.getString("PHONE").toString()
+                    preacher.instaId = documentSnapshot.getString("INSTA").toString()
+                    preacher.studentEnrolled =
+                        documentSnapshot.getString("STUDENTS_ENROLLED").toString()
                     completeListener.onSuccess()
                 })
                 ?.addOnFailureListener(OnFailureListener { e: Exception? -> completeListener.onFailure() })
         }
     }
-    fun getMobileNumber(completeListener: MyCompleteListener) :ArrayList<String> {
+
+    fun getMobileNumber(completeListener: MyCompleteListener): ArrayList<String> {
         val mobileNoList = ArrayList<String>()
         firestore?.collection("STUDENTS")?.get()
             ?.addOnSuccessListener { query ->
-            for (document in query.documents) {
-                val number = document.getString("PHONE")
-                number?.let {
-                    mobileNoList.add(it)
+                for (document in query.documents) {
+                    val number = document.getString("PHONE")
+                    number?.let {
+                        mobileNoList.add(it)
+                    }
                 }
-            }
                 completeListener.onSuccess()
-        }
-        ?.addOnFailureListener { exception ->
-            // Handle any errors that occur
-            completeListener.onFailure()
-        }
+            }
+            ?.addOnFailureListener { exception ->
+                // Handle any errors that occur
+                completeListener.onFailure()
+            }
         return mobileNoList
     }
-//    fun getName(no:String):String{
+
+    //    fun getName(no:String):String{
 //        val myCollectionRef = firestore?.collection("STUDENTS")?.document(no)
 //        var data = ""
 //
@@ -140,7 +167,8 @@ object FirebaseQuery {
     interface FirestoreCallback {
         fun onDataReceived(data: String)
     }
-    fun getName(no:String,callback: FirestoreCallback,completeListener: MyCompleteListener){
+
+    fun getName(no: String, callback: FirestoreCallback, completeListener: MyCompleteListener) {
         val myCollectionRef = firestore?.collection("STUDENTS")?.document(no)
         myCollectionRef?.get()?.addOnSuccessListener { querySnapshot ->
             // Get the data from the query snapshot and pass it to the callback
