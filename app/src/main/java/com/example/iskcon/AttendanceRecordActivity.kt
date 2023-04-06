@@ -97,7 +97,7 @@ class AttendanceRecordActivity : AppCompatActivity() {
         recordRv.apply {
             layoutManager = LinearLayoutManager(context)
         }
-        controller= AttendanceController()
+        controller= AttendanceController(this)
         recordRv.setController(controller)
 //        val dataList=ArrayList<AttendanceRecord>()
 //        dataList.clear()
