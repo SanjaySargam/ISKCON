@@ -1,9 +1,9 @@
 package com.example.iskcon
 
 import android.view.View
-import android.view.ViewParent
-import android.widget.CheckBox
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyHolder
 import com.airbnb.epoxy.EpoxyModelClass
@@ -18,25 +18,22 @@ abstract class AttendanceRecordModel : EpoxyModelWithHolder<AttendanceRecordMode
         return R.layout.attendance_record_item_view
     }
 
-    override fun createNewHolder(parent: ViewParent): ViewHolder {
-        TODO("Not yet implemented")
-    }
 
     override fun bind(holder: ViewHolder) {
         holder.studentNo.text = attendanceRecord.studentNo
         holder.studentName.text = attendanceRecord.studentName
-        holder.isPresentCheckBox.isChecked = attendanceRecord.isPresent
+        holder.isPresentCheckBox.isVisible = attendanceRecord.isPresent
     }
 
     inner class ViewHolder : EpoxyHolder() {
         lateinit var studentNo: TextView
         lateinit var studentName: TextView
-        lateinit var isPresentCheckBox: CheckBox
+        lateinit var isPresentCheckBox: ImageView
 
         override fun bindView(itemView: View) {
             studentNo = itemView.findViewById(R.id.studentNo)
             studentName = itemView.findViewById(R.id.studentName)
-            isPresentCheckBox = itemView.findViewById(R.id.isPresentCheckBox)
+            isPresentCheckBox = itemView.findViewById(R.id.presentImageView)
         }
     }
 }

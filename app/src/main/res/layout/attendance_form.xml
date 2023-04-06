@@ -4,7 +4,16 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_gravity="center"
+    android:gravity="center_vertical"
     android:padding="16dp">
+
+    <Button
+        android:id="@+id/select_date_button"
+        android:text="Select Date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        />
 
     <AutoCompleteTextView
         android:id="@+id/studentNo"

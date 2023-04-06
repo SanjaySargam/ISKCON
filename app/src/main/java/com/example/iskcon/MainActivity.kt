@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         FirebaseQuery.firestore = FirebaseFirestore.getInstance()
         categories.add("New Student")
         categories.add("Take Attendance")
+        categories.add("Attendance Record")
         setRecyclerView()
     }
 

@@ -34,9 +34,16 @@ abstract class CategoryModel(private val context: Context): EpoxyModelWithHolder
             else if(data=="Take Attendance"){
                 moveToTakeAttendance()
             }
+            else if (data=="Attendance Record"){
+                moveToAttendanceRecord()
+            }
         }
 
 
+    }
+    fun moveToAttendanceRecord(){
+        val intent = Intent(context, AttendanceRecordActivity::class.java)
+        context.startActivity(intent)
     }
     fun moveToTakeAttendance() {
         val intent = Intent(context, TakeAttendanceActivity::class.java)

@@ -7,25 +7,27 @@
 
     <TextView
         android:id="@+id/studentName"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:hint="Name"
+        android:gravity="center_horizontal"
         android:textSize="16sp" />
 
     <TextView
         android:id="@+id/studentNo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="9370868033"
+        android:hint="Mobile Number"
+        android:gravity="center_horizontal"
         android:textSize="16sp" />
 
     <ImageView
         android:id="@+id/presentImageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:src="@drawable/ic_check"
+        android:layout_gravity="center_horizontal"
+        android:visibility="invisible"
         />
 
 </LinearLayout>
