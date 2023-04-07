@@ -139,6 +139,25 @@ object FirebaseQuery {
         return mobileNoList
     }
 
+    fun getNames(completeListener: MyCompleteListener): ArrayList<String> {
+        val namesList = ArrayList<String>()
+        firestore?.collection("STUDENTS")?.get()
+            ?.addOnSuccessListener { query ->
+                for (document in query.documents) {
+                    val number = document.getString("NAME")
+                    number?.let {
+                        namesList.add(it)
+                    }
+                }
+                completeListener.onSuccess()
+            }
+            ?.addOnFailureListener { exception ->
+                // Handle any errors that occur
+                completeListener.onFailure()
+            }
+        return namesList
+    }
+
     //    fun getName(no:String):String{
 //        val myCollectionRef = firestore?.collection("STUDENTS")?.document(no)
 //        var data = ""
@@ -176,6 +195,28 @@ object FirebaseQuery {
             callback.onDataReceived(data)
             completeListener.onSuccess()
         }
+    }
+
+    fun getNumber(name: String, callback: FirestoreCallback, completeListener: MyCompleteListener) {
+        val collectionRef = firestore?.collection("STUDENTS")
+
+// Searching for documents where fieldName == "searchValue"
+        val query = collectionRef?.whereEqualTo("NAME", name)
+
+// Retrieving the matching documents
+        query?.get()?.addOnSuccessListener { documents ->
+            for (document in documents) {
+                // Do something with the matching documents
+                val data = document.getString("PHONE").toString()
+                callback.onDataReceived(data)
+                Log.d("Firestore", "Document data: $data")
+            }
+            completeListener.onSuccess()
+        }?.addOnFailureListener { exception ->
+            Log.w("Firestore", "Error getting documents: ", exception)
+            completeListener.onFailure()
+        }
+
     }
 
 
