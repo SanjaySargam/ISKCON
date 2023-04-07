@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 
 class SignInActivity : AppCompatActivity() {
     private var email: EditText? = null
-    private  var pass:EditText? = null
+    private var pass: EditText? = null
     private var mAuth: FirebaseAuth? = null
     private var progressDialog: Dialog? = null
     private var dialogText: TextView? = null
@@ -41,6 +41,7 @@ class SignInActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun validateData(): Boolean {
         if (email!!.text.toString().isEmpty()) {
             email!!.error = "Enter E-mail ID"
@@ -52,6 +53,7 @@ class SignInActivity : AppCompatActivity() {
         }
         return true
     }
+
     private fun login() {
         progressDialog!!.show()
         mAuth!!.signInWithEmailAndPassword(
@@ -64,12 +66,12 @@ class SignInActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     progressDialog!!.dismiss()
                     Toast.makeText(this@SignInActivity, "Login Success", Toast.LENGTH_SHORT).show()
-                    val intent=Intent(this@SignInActivity,MainActivity::class.java)
+                    val intent = Intent(this@SignInActivity, MainActivity::class.java)
                     startActivity(intent)
-                }
-                else{
+                } else {
                     progressDialog!!.dismiss()
-                    Toast.makeText(this@SignInActivity, "Invalid Credentials", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@SignInActivity, "Invalid Credentials", Toast.LENGTH_SHORT)
+                        .show()
 
                 }
 

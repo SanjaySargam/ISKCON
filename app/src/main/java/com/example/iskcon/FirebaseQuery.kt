@@ -69,7 +69,7 @@ object FirebaseQuery {
             }
         userDoc?.collection("STUDENTS")?.document(number)
             ?.set(
-                StudentRegistrationActivity.Student(
+                Student(
                     name,
                     email,
                     number,
@@ -187,6 +187,10 @@ object FirebaseQuery {
         fun onDataReceived(data: String)
     }
 
+    interface FirestoreCallback2 {
+        fun onDataReceived(data: Student)
+    }
+
     fun getName(no: String, callback: FirestoreCallback, completeListener: MyCompleteListener) {
         val myCollectionRef = firestore?.collection("STUDENTS")?.document(no)
         myCollectionRef?.get()?.addOnSuccessListener { querySnapshot ->
@@ -217,6 +221,32 @@ object FirebaseQuery {
             completeListener.onFailure()
         }
 
+    }
+
+    fun getStudentProfile(
+        no: String,
+        callback: FirestoreCallback2,
+        completeListener: MyCompleteListener
+    ) {
+        firestore?.collection("STUDENTS")
+            ?.document(no)
+            ?.get()
+            ?.addOnSuccessListener {
+                val add = it.getString("ADDRESS").toString()
+                val clg = it.getString("COLLEGE").toString()
+                val dob = it.getString("DOB").toString()
+                val ed = it.getString("EDUCATION").toString()
+                val email = it.getString("EMAIL-ID").toString()
+                val insta = it.getString("INSTA-ID").toString()
+                val name = it.getString("NAME").toString()
+                val occ = it.getString("OCCUPATION").toString()
+                val phone = it.getString("PHONE").toString()
+                callback.onDataReceived(Student(name, email, phone, add, clg, dob, insta, ed, occ))
+                completeListener.onSuccess()
+            }
+            ?.addOnFailureListener {
+                completeListener.onFailure()
+            }
     }
 
 

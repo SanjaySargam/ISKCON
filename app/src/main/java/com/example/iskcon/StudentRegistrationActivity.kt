@@ -26,16 +26,16 @@ class StudentRegistrationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_student_registration)
-        name=findViewById(R.id.etName)
-        email=findViewById(R.id.etEmail)
-        phone=findViewById(R.id.etNumber)
-        address=findViewById(R.id.etAddress)
-        college=findViewById(R.id.etCollege)
-        dob=findViewById(R.id.etDOB)
-        insta=findViewById(R.id.etInsta)
-        education=findViewById(R.id.etEducation)
-        occupation=findViewById(R.id.etOccupation)
-        addBtn=findViewById(R.id.btnAdd)
+        name = findViewById(R.id.etName)
+        email = findViewById(R.id.etEmail)
+        phone = findViewById(R.id.etNumber)
+        address = findViewById(R.id.etAddress)
+        college = findViewById(R.id.etCollege)
+        dob = findViewById(R.id.etDOB)
+        insta = findViewById(R.id.etInsta)
+        education = findViewById(R.id.etEducation)
+        occupation = findViewById(R.id.etOccupation)
+        addBtn = findViewById(R.id.btnAdd)
 
 
 
@@ -49,22 +49,42 @@ class StudentRegistrationActivity : AppCompatActivity() {
         dialogText!!.setText("Registering Student")
 
         addBtn.setOnClickListener {
-            if (validate(name,email,phone,address,college,dob,insta,education,occupation)){
+            if (validate(name, email, phone, address, college, dob, insta, education, occupation)) {
                 progressDialog!!.show()
-                val devoteeName=name.text.toString()
-                val emailStr=email.text.toString()
-                val mobile_number=phone.text.toString()
-                val addressStr=address.text.toString()
-                val collegeStr=college.text.toString()
-                val DOBStr=dob.text.toString()
-                val instaStr=insta.text.toString()
-                val educationStr=education.text.toString()
-                val occupationStr=occupation.text.toString()
-                FirebaseQuery.createStudent(devoteeName,emailStr,mobile_number,addressStr,collegeStr,DOBStr,instaStr,educationStr,occupationStr,object : MyCompleteListener{
-                    override fun onSuccess() {
-                        clear(name,email,phone,address,college,dob,insta,education,occupation)
-                        progressDialog!!.dismiss()
-                        Toast.makeText(baseContext,"Success", Toast.LENGTH_SHORT).show()
+                val devoteeName = name.text.toString()
+                val emailStr = email.text.toString()
+                val mobile_number = phone.text.toString()
+                val addressStr = address.text.toString()
+                val collegeStr = college.text.toString()
+                val DOBStr = dob.text.toString()
+                val instaStr = insta.text.toString()
+                val educationStr = education.text.toString()
+                val occupationStr = occupation.text.toString()
+                FirebaseQuery.createStudent(
+                    devoteeName,
+                    emailStr,
+                    mobile_number,
+                    addressStr,
+                    collegeStr,
+                    DOBStr,
+                    instaStr,
+                    educationStr,
+                    occupationStr,
+                    object : MyCompleteListener {
+                        override fun onSuccess() {
+                            clear(
+                                name,
+                                email,
+                                phone,
+                                address,
+                                college,
+                                dob,
+                                insta,
+                                education,
+                                occupation
+                            )
+                            progressDialog!!.dismiss()
+                            Toast.makeText(baseContext, "Success", Toast.LENGTH_SHORT).show()
 //                        FirebaseQuery.addStudentToPreacher(devoteeName,emailStr,mobile_number,addressStr,collegeStr,DOBStr,instaStr,educationStr,occupationStr,object : MyCompleteListener{
 //                            override fun onSuccess() {
 //                                progressDialog!!.dismiss()
@@ -77,91 +97,103 @@ class StudentRegistrationActivity : AppCompatActivity() {
 //                            }
 //
 //                        })
-                    }
-                    override fun onFailure() {
-                        progressDialog!!.dismiss()
-                        Toast.makeText(baseContext,"Error 101", Toast.LENGTH_SHORT).show()
-                    }
+                        }
 
-                })
-            }
-            else{
-                Toast.makeText(baseContext,"Error", Toast.LENGTH_SHORT).show()
+                        override fun onFailure() {
+                            progressDialog!!.dismiss()
+                            Toast.makeText(baseContext, "Error 101", Toast.LENGTH_SHORT).show()
+                        }
+
+                    })
+            } else {
+                Toast.makeText(baseContext, "Error", Toast.LENGTH_SHORT).show()
             }
         }
     }
-fun validate(name:EditText,email: EditText,number: EditText,address: EditText,college: EditText,DOB:EditText,insta: EditText,education: EditText,occupation: EditText):Boolean{
-    val devoteeName=name.text.toString()
-    val emailStr=email.text.toString()
-    val mobile_number=number.text.toString()
-    val addressStr=address.text.toString()
-    val collegeStr=college.text.toString()
-    val DOBStr=DOB.text.toString()
-    val instaStr=insta.text.toString()
-    val educationStr=education.text.toString()
-    val occupationStr=occupation.text.toString()
-    if (devoteeName.isEmpty()){
-        name.error = "Enter name"
-        return false
+
+    fun validate(
+        name: EditText,
+        email: EditText,
+        number: EditText,
+        address: EditText,
+        college: EditText,
+        DOB: EditText,
+        insta: EditText,
+        education: EditText,
+        occupation: EditText
+    ): Boolean {
+        val devoteeName = name.text.toString()
+        val emailStr = email.text.toString()
+        val mobile_number = number.text.toString()
+        val addressStr = address.text.toString()
+        val collegeStr = college.text.toString()
+        val DOBStr = DOB.text.toString()
+        val instaStr = insta.text.toString()
+        val educationStr = education.text.toString()
+        val occupationStr = occupation.text.toString()
+        if (devoteeName.isEmpty()) {
+            name.error = "Enter name"
+            return false
+        }
+        if (emailStr.isEmpty()) {
+            email.error = "Enter email"
+            return false
+        }
+        if (addressStr.isEmpty()) {
+            address.error = "Enter address"
+            return false
+        }
+        if (collegeStr.isEmpty()) {
+            college.error = "Enter college"
+            return false
+        }
+        if (DOBStr.isEmpty()) {
+            DOB.error = "Enter DOB"
+            return false
+        }
+        if (instaStr.isEmpty()) {
+            insta.error = "Enter insta-id"
+            return false
+        }
+        if (educationStr.isEmpty()) {
+            education.error = "Enter education"
+            return false
+        }
+        if (occupationStr.isEmpty()) {
+            occupation.error = "Enter occupation"
+            return false
+        }
+        if (mobile_number.isEmpty()) {
+            number.error = "Enter Mobile Number"
+            return false
+        }
+        if (!(mobile_number.length == 10 && TextUtils.isDigitsOnly(mobile_number))) {
+            number.error = "Enter Valid Mobile Number"
+            return false
+        }
+        return true
     }
-    if (emailStr.isEmpty()){
-        email.error = "Enter email"
-        return false
+
+    fun clear(
+        name: EditText,
+        email: EditText,
+        number: EditText,
+        address: EditText,
+        college: EditText,
+        DOB: EditText,
+        insta: EditText,
+        education: EditText,
+        occupation: EditText
+    ) {
+        name.text.clear()
+        number.text.clear()
+        email.text.clear()
+        address.text.clear()
+        college.text.clear()
+        DOB.text.clear()
+        insta.text.clear()
+        education.text.clear()
+        occupation.text.clear()
     }
-    if (addressStr.isEmpty()){
-        address.error = "Enter address"
-        return false
-    }
-    if (collegeStr.isEmpty()){
-        college.error = "Enter college"
-        return false
-    }
-    if (DOBStr.isEmpty()){
-        DOB.error = "Enter DOB"
-        return false
-    }
-    if (instaStr.isEmpty()){
-        insta.error = "Enter insta-id"
-        return false
-    }
-    if (educationStr.isEmpty()){
-        education.error = "Enter education"
-        return false
-    }
-    if (occupationStr.isEmpty()){
-        occupation.error = "Enter occupation"
-        return false
-    }
-    if (mobile_number.isEmpty()){
-        number.error = "Enter Mobile Number"
-        return false
-    }
-    if (!(mobile_number.length == 10 && TextUtils.isDigitsOnly(mobile_number))){
-        number.error = "Enter Valid Mobile Number"
-        return false
-    }
-    return true
-}
-fun clear(name:EditText,email: EditText,number: EditText,address: EditText,college: EditText,DOB:EditText,insta: EditText,education: EditText,occupation: EditText){
-    name.text.clear()
-    number.text.clear()
-    email.text.clear()
-    address.text.clear()
-    college.text.clear()
-    DOB.text.clear()
-    insta.text.clear()
-    education.text.clear()
-    occupation.text.clear()
-}
-data class Student(
-    var name:String,
-    val email:String,
-    val phone:String,
-    val address:String,
-    val college:String,
-    val dob:String,
-    val insta:String,
-    val education:String,
-    val occupation:String
-)
+
 }

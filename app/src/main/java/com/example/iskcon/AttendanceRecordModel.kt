@@ -13,7 +13,8 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 
 @EpoxyModelClass
-abstract class AttendanceRecordModel(private val context: Context) : EpoxyModelWithHolder<AttendanceRecordModel.ViewHolder>() {
+abstract class AttendanceRecordModel(private val context: Context) :
+    EpoxyModelWithHolder<AttendanceRecordModel.ViewHolder>() {
     @EpoxyAttribute
     lateinit var attendanceRecord: AttendanceRecord
 
@@ -29,6 +30,7 @@ abstract class AttendanceRecordModel(private val context: Context) : EpoxyModelW
 
         holder.constraintLayout.setOnClickListener {
             val intent = Intent(context, StudentProfileActivity::class.java)
+            intent.putExtra("Number", attendanceRecord.studentNo)
             context.startActivity(intent)
         }
 

@@ -14,22 +14,23 @@ import com.google.firebase.database.*
 
 
 class AttendanceRecordActivity : AppCompatActivity() {
-    private lateinit var recordRv:EpoxyRecyclerView
+    private lateinit var recordRv: EpoxyRecyclerView
     private lateinit var controller: AttendanceController
-    private lateinit var selectDate:Spinner
-    private lateinit var isPresent:Spinner
-    private lateinit var databaseReference:DatabaseReference
+    private lateinit var selectDate: Spinner
+    private lateinit var isPresent: Spinner
+    private lateinit var databaseReference: DatabaseReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_attendance_record)
         databaseReference = FirebaseDatabase.getInstance().getReference("attendance")
-        recordRv=findViewById(R.id.record_rv)
+        recordRv = findViewById(R.id.record_rv)
         setRecycler()
 
         selectDate = findViewById(R.id.selectDate)
-        val spinnerAdapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mutableListOf())
+        val spinnerAdapter =
+            ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mutableListOf())
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        getDates(spinnerAdapter,databaseReference)
+        getDates(spinnerAdapter, databaseReference)
         selectDate.adapter = spinnerAdapter
         selectDate.setSelection(0)
 
@@ -44,7 +45,7 @@ class AttendanceRecordActivity : AppCompatActivity() {
             ) {
                 // Handle the selection event here
                 val selectedItem = parent?.getItemAtPosition(position) as String
-                if (position != 0){
+                if (position != 0) {
                     getStudentsList(selectedItem)
 //                    val dataList=ArrayList<AttendanceRecord>()
 //                    dataList.clear()
@@ -62,9 +63,10 @@ class AttendanceRecordActivity : AppCompatActivity() {
 //        }
 
 
-        isPresent=findViewById(R.id.is_present)
+        isPresent = findViewById(R.id.is_present)
         val spinnerValues = listOf("Status", "Present", "Absent")
-        val adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerValues)
+        val adapter =
+            ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerValues)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         isPresent.adapter = adapter
         isPresent.setSelection(0)
@@ -76,12 +78,12 @@ class AttendanceRecordActivity : AppCompatActivity() {
                 id: Long
             ) {
                 // Handle the selection event here
-                if (isDateSelected()){
+                if (isDateSelected()) {
                     val selectedItem = parent?.getItemAtPosition(position) as String
-                    val date=selectDate.selectedItem.toString()
-                    if (position != 0){
-                        val isPresent= selectedItem=="Present"
-                        getStudentsPA(date,isPresent)
+                    val date = selectDate.selectedItem.toString()
+                    if (position != 0) {
+                        val isPresent = selectedItem == "Present"
+                        getStudentsPA(date, isPresent)
 //                    val dataList=ArrayList<AttendanceRecord>()
 //                    dataList.clear()
 //                    dataList.add(AttendanceRecord("9370868033","Sanjay",true))
@@ -97,70 +99,83 @@ class AttendanceRecordActivity : AppCompatActivity() {
         }
 
 
-
     }
-    fun isDateSelected():Boolean{
-        if (selectDate.selectedItem.toString()=="Select Date"){
-            (selectDate.selectedView as? TextView)?.error="Select Date"
+
+    fun isDateSelected(): Boolean {
+        if (selectDate.selectedItem.toString() == "Select Date") {
+            (selectDate.selectedView as? TextView)?.error = "Select Date"
             return false
         }
         return true
     }
-    fun getStudentsList(date:String){
-        val dataList=ArrayList<AttendanceRecord>()
+
+    fun getStudentsList(date: String) {
+        val dataList = ArrayList<AttendanceRecord>()
         dataList.clear()
-        Log.i("fgds",date)
+        Log.i("fgds", date)
         databaseReference.child(date)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    for (document in snapshot.children){
-                        val studentNo=document.child("studentNo").getValue(String::class.java).toString()
-                        val studentName=document.child("studentName").getValue(String::class.java).toString()
-                        val isPresent= document.child("present").getValue(Boolean::class.java)
-                        isPresent?.let { AttendanceRecord(studentNo,studentName, it) }
+                    for (document in snapshot.children) {
+                        val studentNo =
+                            document.child("studentNo").getValue(String::class.java).toString()
+                        val studentName =
+                            document.child("studentName").getValue(String::class.java).toString()
+                        val isPresent = document.child("present").getValue(Boolean::class.java)
+                        isPresent?.let { AttendanceRecord(studentNo, studentName, it) }
                             ?.let { dataList.add(it) }
                     }
-                    controller.setData(dataList!!)                }
+                    controller.setData(dataList!!)
+                }
 
                 override fun onCancelled(error: DatabaseError) {
                 }
 
             })
     }
-    fun getStudentsPA(date:String,isPresent:Boolean){
-        val dataList=ArrayList<AttendanceRecord>()
+
+    fun getStudentsPA(date: String, isPresent: Boolean) {
+        val dataList = ArrayList<AttendanceRecord>()
         dataList.clear()
-        Log.i("fgds",date)
+        Log.i("fgds", date)
         databaseReference.child(date)
             .orderByChild("present").equalTo(isPresent)
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    for (document in snapshot.children){
-                        val studentNo=document.child("studentNo").getValue(String::class.java).toString()
-                        val studentName=document.child("studentName").getValue(String::class.java).toString()
-                        val isPresent= document.child("present").getValue(Boolean::class.java)
-                        isPresent?.let { AttendanceRecord(studentNo,studentName, it) }
+                    for (document in snapshot.children) {
+                        val studentNo =
+                            document.child("studentNo").getValue(String::class.java).toString()
+                        val studentName =
+                            document.child("studentName").getValue(String::class.java).toString()
+                        val isPresent = document.child("present").getValue(Boolean::class.java)
+                        isPresent?.let { AttendanceRecord(studentNo, studentName, it) }
                             ?.let { dataList.add(it) }
                     }
-                    controller.setData(dataList!!)                }
+                    controller.setData(dataList!!)
+                }
 
                 override fun onCancelled(error: DatabaseError) {
                 }
 
             })
     }
-    fun setRecycler(){
+
+    fun setRecycler() {
         recordRv.apply {
             layoutManager = LinearLayoutManager(context)
         }
-        controller= AttendanceController(this)
+        controller = AttendanceController(this)
         recordRv.setController(controller)
 //        val dataList=ArrayList<AttendanceRecord>()
 //        dataList.clear()
 //        dataList.add(AttendanceRecord("9370868033","Sanjay",true))
 //        controller.setData(dataList)
     }
-    private fun getDates(spinnerAdapter:ArrayAdapter<String>,databaseReference: DatabaseReference) {
+
+    private fun getDates(
+        spinnerAdapter: ArrayAdapter<String>,
+        databaseReference: DatabaseReference
+    ) {
         spinnerAdapter.add("Select Date")
         databaseReference.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {

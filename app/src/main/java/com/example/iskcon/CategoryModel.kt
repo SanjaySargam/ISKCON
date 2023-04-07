@@ -14,7 +14,8 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.airbnb.epoxy.EpoxyModelWithHolder
 
 @EpoxyModelClass()
-abstract class CategoryModel(private val context: Context): EpoxyModelWithHolder<CategoryModel.ViewHolder>() {
+abstract class CategoryModel(private val context: Context) :
+    EpoxyModelWithHolder<CategoryModel.ViewHolder>() {
 
     @EpoxyAttribute
     lateinit var data: String
@@ -25,30 +26,31 @@ abstract class CategoryModel(private val context: Context): EpoxyModelWithHolder
 
     override fun bind(holder: ViewHolder) {
         super.bind(holder)
-        holder.category.text=data
+        holder.category.text = data
 
         holder.card_view.setOnClickListener {
-            if (data=="New Student"){
+            if (data == "New Student") {
                 moveToStudentRegistration()
-            }
-            else if(data=="Take Attendance"){
+            } else if (data == "Take Attendance") {
                 moveToTakeAttendance()
-            }
-            else if (data=="Attendance Record"){
+            } else if (data == "Attendance Record") {
                 moveToAttendanceRecord()
             }
         }
 
 
     }
-    fun moveToAttendanceRecord(){
+
+    fun moveToAttendanceRecord() {
         val intent = Intent(context, AttendanceRecordActivity::class.java)
         context.startActivity(intent)
     }
+
     fun moveToTakeAttendance() {
         val intent = Intent(context, TakeAttendanceActivity::class.java)
         context.startActivity(intent)
     }
+
     fun moveToStudentRegistration() {
         val intent = Intent(context, StudentRegistrationActivity::class.java)
         context.startActivity(intent)
@@ -56,11 +58,11 @@ abstract class CategoryModel(private val context: Context): EpoxyModelWithHolder
 
     inner class ViewHolder : EpoxyHolder() {
         lateinit var category: TextView
-        lateinit var card_view:CardView
+        lateinit var card_view: CardView
 
         override fun bindView(itemView: View) {
             category = itemView.findViewById(R.id.catName)
-            card_view= itemView.findViewById(R.id.cardView)
+            card_view = itemView.findViewById(R.id.cardView)
         }
     }
 }
