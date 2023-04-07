@@ -2,24 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:layout_gravity="center"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
     android:padding="16dp">
+
+    <Button
+        android:id="@+id/select_date_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Select Date" />
 
     <AutoCompleteTextView
         android:id="@+id/studentNo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Mobile Number"
-        android:inputType="phone"
-        />
+        android:inputType="phone" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/studentName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:hint="Student Name" />
+        android:hint="Student Name"
+        android:inputType="text" />
 
     <CheckBox
         android:id="@+id/isPresentCheckBox"
