@@ -9,5 +9,6 @@ data class Student(
     val DOB: String,
     val INSTA_ID: String,
     val EDUCATION: String,
-    val OCCUPATION: String
+    val OCCUPATION: String,
+    val PHONE2: String
 )

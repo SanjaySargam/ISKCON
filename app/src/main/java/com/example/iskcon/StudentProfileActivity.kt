@@ -49,6 +49,7 @@ class StudentProfileActivity : AppCompatActivity() {
                     add.text = data.ADDRESS
                     clg.text = data.COLLEGE
                     number.text = data.PHONE
+                    number2.text = data.PHONE2
                 }
             }
         }

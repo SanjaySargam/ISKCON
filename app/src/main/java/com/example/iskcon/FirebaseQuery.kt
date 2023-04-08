@@ -24,6 +24,7 @@ object FirebaseQuery {
         insta: String,
         education: String,
         occupation: String,
+        phone2: String,
         completeListener: MyCompleteListener
     ) {
         val devoteeData: MutableMap<String, Any> = ArrayMap()
@@ -36,6 +37,7 @@ object FirebaseQuery {
         devoteeData["INSTA-ID"] = insta
         devoteeData["EDUCATION"] = education
         devoteeData["OCCUPATION"] = occupation
+        devoteeData["PHONE2"] = phone2
 
         val userDoc: DocumentReference? =
             firestore?.collection("STUDENTS")?.document(
@@ -61,6 +63,7 @@ object FirebaseQuery {
         insta: String,
         education: String,
         occupation: String,
+        phone2: String,
         completeListener: MyCompleteListener
     ) {
         val userDoc =
@@ -78,7 +81,8 @@ object FirebaseQuery {
                     dob,
                     insta,
                     education,
-                    occupation
+                    occupation,
+                    phone2
                 )
             )
             ?.addOnCompleteListener {
@@ -90,9 +94,11 @@ object FirebaseQuery {
                     userDoc.update("STUDENTS_ENROLLED", increment)
                         .addOnSuccessListener {
                             // Field value incremented successfully
+                            completeListener.onSuccess()
                         }
                         .addOnFailureListener { e ->
                             // Handle any errors that occurred while incrementing the field value
+                            completeListener.onFailure()
                         }
 
                     Log.d(TAG, "Data added to Firestore ${it.result}")
@@ -241,7 +247,21 @@ object FirebaseQuery {
                 val name = it.getString("NAME").toString()
                 val occ = it.getString("OCCUPATION").toString()
                 val phone = it.getString("PHONE").toString()
-                callback.onDataReceived(Student(name, email, phone, add, clg, dob, insta, ed, occ))
+                val phone2 = it.getString("PHONE2").toString()
+                callback.onDataReceived(
+                    Student(
+                        name,
+                        email,
+                        phone,
+                        add,
+                        clg,
+                        dob,
+                        insta,
+                        ed,
+                        occ,
+                        phone2
+                    )
+                )
                 completeListener.onSuccess()
             }
             ?.addOnFailureListener {

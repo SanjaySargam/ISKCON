@@ -84,6 +84,13 @@
             android:hint="Occupation"
             android:inputType="text"
             />
+        <EditText
+            android:id="@+id/etPhone2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Alternate Number (Optional)"
+            android:inputType="text"
+            />
         <Button
             android:id="@+id/btnAdd"
             android:layout_width="match_parent"

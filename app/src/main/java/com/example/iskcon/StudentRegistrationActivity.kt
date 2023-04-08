@@ -20,6 +20,7 @@ class StudentRegistrationActivity : AppCompatActivity() {
     private lateinit var insta: EditText
     private lateinit var education: EditText
     private lateinit var occupation: EditText
+    private lateinit var phone2: EditText
     private lateinit var addBtn: Button
     private var progressDialog: Dialog? = null
     private var dialogText: TextView? = null
@@ -35,6 +36,7 @@ class StudentRegistrationActivity : AppCompatActivity() {
         insta = findViewById(R.id.etInsta)
         education = findViewById(R.id.etEducation)
         occupation = findViewById(R.id.etOccupation)
+        phone2 = findViewById(R.id.etPhone2)
         addBtn = findViewById(R.id.btnAdd)
 
 
@@ -60,6 +62,7 @@ class StudentRegistrationActivity : AppCompatActivity() {
                 val instaStr = insta.text.toString()
                 val educationStr = education.text.toString()
                 val occupationStr = occupation.text.toString()
+                val phone2Str = phone2.text.toString()
                 FirebaseQuery.createStudent(
                     devoteeName,
                     emailStr,
@@ -70,6 +73,7 @@ class StudentRegistrationActivity : AppCompatActivity() {
                     instaStr,
                     educationStr,
                     occupationStr,
+                    phone2Str,
                     object : MyCompleteListener {
                         override fun onSuccess() {
                             clear(
@@ -81,7 +85,8 @@ class StudentRegistrationActivity : AppCompatActivity() {
                                 dob,
                                 insta,
                                 education,
-                                occupation
+                                occupation,
+                                phone2
                             )
                             progressDialog!!.dismiss()
                             Toast.makeText(baseContext, "Success", Toast.LENGTH_SHORT).show()
@@ -183,7 +188,8 @@ class StudentRegistrationActivity : AppCompatActivity() {
         DOB: EditText,
         insta: EditText,
         education: EditText,
-        occupation: EditText
+        occupation: EditText,
+        phone2: EditText
     ) {
         name.text.clear()
         number.text.clear()
@@ -194,6 +200,7 @@ class StudentRegistrationActivity : AppCompatActivity() {
         insta.text.clear()
         education.text.clear()
         occupation.text.clear()
+        phone2.text.clear()
     }
 
 }
