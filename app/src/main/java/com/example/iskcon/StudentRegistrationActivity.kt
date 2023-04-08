@@ -1,14 +1,17 @@
 package com.example.iskcon
 
+import android.app.DatePickerDialog
 import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import java.util.*
 
 class StudentRegistrationActivity : AppCompatActivity() {
     private lateinit var name: EditText
@@ -49,6 +52,27 @@ class StudentRegistrationActivity : AppCompatActivity() {
 
         dialogText = progressDialog!!.findViewById(R.id.dialog_text)
         dialogText!!.setText("Registering Student")
+
+        dob.setOnClickListener {
+                val calendar = Calendar.getInstance()
+                val year = calendar.get(Calendar.YEAR)
+                val month = calendar.get(Calendar.MONTH)
+                val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+                val datePickerDialog = DatePickerDialog(
+                    this,
+                    { _, year, monthOfYear, dayOfMonth ->
+                        // Do something with the selected date
+                        // For example, update a TextView with the selected date
+                        val selectedDate = "${dayOfMonth}-${monthOfYear + 1}-${year}"
+                        val editable = Editable.Factory.getInstance().newEditable(selectedDate)
+                        dob.text = editable
+                    }, year, month, day
+                )
+
+                datePickerDialog.show()
+
+        }
 
         addBtn.setOnClickListener {
             if (validate(name, email, phone, address, college, dob, insta, education, occupation)) {
