@@ -2,6 +2,7 @@ package com.example.iskcon
 
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -27,6 +28,8 @@ class StudentRegistrationActivity : AppCompatActivity() {
     private lateinit var addBtn: Button
     private var progressDialog: Dialog? = null
     private var dialogText: TextView? = null
+    private lateinit var mediaPlayer: MediaPlayer
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_student_registration)
@@ -41,8 +44,7 @@ class StudentRegistrationActivity : AppCompatActivity() {
         occupation = findViewById(R.id.etOccupation)
         phone2 = findViewById(R.id.etPhone2)
         addBtn = findViewById(R.id.btnAdd)
-
-
+        mediaPlayer = MediaPlayer.create(this, R.raw.sound)
 
         progressDialog = Dialog(this)
         progressDialog!!.setContentView(R.layout.dialog_layout)
@@ -113,7 +115,8 @@ class StudentRegistrationActivity : AppCompatActivity() {
                                 phone2
                             )
                             progressDialog!!.dismiss()
-                            Toast.makeText(baseContext, "Success", Toast.LENGTH_SHORT).show()
+                            mediaPlayer.start()
+                            Toast.makeText(baseContext, "New Student Added Successfully", Toast.LENGTH_SHORT).show()
 //                        FirebaseQuery.addStudentToPreacher(devoteeName,emailStr,mobile_number,addressStr,collegeStr,DOBStr,instaStr,educationStr,occupationStr,object : MyCompleteListener{
 //                            override fun onSuccess() {
 //                                progressDialog!!.dismiss()
@@ -225,6 +228,10 @@ class StudentRegistrationActivity : AppCompatActivity() {
         education.text.clear()
         occupation.text.clear()
         phone2.text.clear()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 
 }
