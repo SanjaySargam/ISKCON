@@ -29,12 +29,12 @@ object FirebaseQuery {
     ) {
         val devoteeData: MutableMap<String, Any> = ArrayMap()
         devoteeData["NAME"] = name
-        devoteeData["EMAIL-ID"] = email
+        devoteeData["EMAIL_ID"] = email
         devoteeData["PHONE"] = number
         devoteeData["ADDRESS"] = address
         devoteeData["COLLEGE"] = college
         devoteeData["DOB"] = dob
-        devoteeData["INSTA-ID"] = insta
+        devoteeData["INSTA_ID"] = insta
         devoteeData["EDUCATION"] = education
         devoteeData["OCCUPATION"] = occupation
         devoteeData["PHONE2"] = phone2

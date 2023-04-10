@@ -56,23 +56,23 @@ class StudentRegistrationActivity : AppCompatActivity() {
         dialogText!!.setText("Registering Student")
 
         dob.setOnClickListener {
-                val calendar = Calendar.getInstance()
-                val year = calendar.get(Calendar.YEAR)
-                val month = calendar.get(Calendar.MONTH)
-                val day = calendar.get(Calendar.DAY_OF_MONTH)
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-                val datePickerDialog = DatePickerDialog(
-                    this,
-                    { _, year, monthOfYear, dayOfMonth ->
-                        // Do something with the selected date
-                        // For example, update a TextView with the selected date
-                        val selectedDate = "${dayOfMonth}-${monthOfYear + 1}-${year}"
-                        val editable = Editable.Factory.getInstance().newEditable(selectedDate)
-                        dob.text = editable
-                    }, year, month, day
-                )
+            val datePickerDialog = DatePickerDialog(
+                this,
+                { _, year, monthOfYear, dayOfMonth ->
+                    // Do something with the selected date
+                    // For example, update a TextView with the selected date
+                    val selectedDate = "${dayOfMonth}-${monthOfYear + 1}-${year}"
+                    val editable = Editable.Factory.getInstance().newEditable(selectedDate)
+                    dob.text = editable
+                }, year, month, day
+            )
 
-                datePickerDialog.show()
+            datePickerDialog.show()
 
         }
 
@@ -114,21 +114,35 @@ class StudentRegistrationActivity : AppCompatActivity() {
                                 occupation,
                                 phone2
                             )
-                            progressDialog!!.dismiss()
-                            mediaPlayer.start()
-                            Toast.makeText(baseContext, "New Student Added Successfully", Toast.LENGTH_SHORT).show()
-//                        FirebaseQuery.addStudentToPreacher(devoteeName,emailStr,mobile_number,addressStr,collegeStr,DOBStr,instaStr,educationStr,occupationStr,object : MyCompleteListener{
-//                            override fun onSuccess() {
-//                                progressDialog!!.dismiss()
-//                                Toast.makeText(baseContext,"Data added successfully", Toast.LENGTH_SHORT).show()
-//                            }
-//
-//                            override fun onFailure() {
-//                                progressDialog!!.dismiss()
-//                                Toast.makeText(baseContext,"Error 101", Toast.LENGTH_SHORT).show()
-//                            }
-//
-//                        })
+                            FirebaseQuery.addStudentToPreacher(
+                                devoteeName,
+                                emailStr,
+                                mobile_number,
+                                addressStr,
+                                collegeStr,
+                                DOBStr,
+                                instaStr,
+                                educationStr,
+                                occupationStr,
+                                phone2Str,
+                                object : MyCompleteListener {
+                                    override fun onSuccess() {
+                                        progressDialog!!.dismiss()
+                                        mediaPlayer.start()
+                                        Toast.makeText(
+                                            baseContext,
+                                            "New Student Added Successfully",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+
+                                    override fun onFailure() {
+                                        progressDialog!!.dismiss()
+                                        Toast.makeText(baseContext, "Error 101", Toast.LENGTH_SHORT)
+                                            .show()
+                                    }
+
+                                })
                         }
 
                         override fun onFailure() {
