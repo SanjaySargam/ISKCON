@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import android.content.Intent
 import java.util.*
 
 class StudentRegistrationActivity : AppCompatActivity() {
@@ -89,6 +90,11 @@ class StudentRegistrationActivity : AppCompatActivity() {
                 val educationStr = education.text.toString()
                 val occupationStr = occupation.text.toString()
                 val phone2Str = phone2.text.toString()
+
+                // Show the splash screen
+                val intent = Intent(this, ticksplashscreen::class.java)
+                startActivity(intent)
+
                 FirebaseQuery.createStudent(
                     devoteeName,
                     emailStr,
@@ -213,7 +219,7 @@ class StudentRegistrationActivity : AppCompatActivity() {
             number.error = "Enter Mobile Number"
             return false
         }
-        if (!(mobile_number.length == 10 && TextUtils.isDigitsOnly(mobile_number))) {
+        if ((mobile_number.length == 10 && TextUtils.isDigitsOnly(mobile_number))) {
             number.error = "Enter Valid Mobile Number"
             return false
         }

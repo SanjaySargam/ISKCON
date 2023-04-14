@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@drawable/background"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:gravity="center"
+        android:background="#55000000">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageView2"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/logo" />
+
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:hint="Username"
+            android:textColorHint="#FFFBF8"
+            android:paddingLeft="15dp"
+            android:gravity="center"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/loginbtn"/>
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:hint="Password"
+            android:textColorHint="#FFFBF8"
+            android:paddingLeft="15dp"
+            android:gravity="center"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/loginbtn"/>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Keep me signed in"
+            android:textColor="#FFFBF8"
+            android:hint="#FFFBF8"
+            android:layout_marginTop="10dp"
+            android:buttonTint="#FFFBF8"
+            />
+
+        <Button
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:text="Sign in"
+            android:textAllCaps="false"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btncolor"
+            android:textColor="#FFFBF8"/>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:background="#3fff"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forget Password"
+            android:layout_marginTop="10dp"
+            android:textColor="#FFFBF8"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

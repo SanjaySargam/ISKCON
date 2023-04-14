@@ -35,6 +35,8 @@ abstract class CategoryModel(private val context: Context) :
                 moveToTakeAttendance()
             } else if (data == "Attendance Record") {
                 moveToAttendanceRecord()
+            } else if (data == "Feedback") {
+                moveTofeedbacksplash2()
             }
         }
 
@@ -53,6 +55,11 @@ abstract class CategoryModel(private val context: Context) :
 
     fun moveToStudentRegistration() {
         val intent = Intent(context, StudentRegistrationActivity::class.java)
+        context.startActivity(intent)
+    }
+
+    fun moveTofeedbacksplash2() {
+        val intent = Intent(context, feedbacksplash2::class.java)
         context.startActivity(intent)
     }
 
