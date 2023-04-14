@@ -219,7 +219,7 @@ class StudentRegistrationActivity : AppCompatActivity() {
             number.error = "Enter Mobile Number"
             return false
         }
-        if ((mobile_number.length == 10 && TextUtils.isDigitsOnly(mobile_number))) {
+        if (!(mobile_number.length == 10 && TextUtils.isDigitsOnly(mobile_number))) {
             number.error = "Enter Valid Mobile Number"
             return false
         }
