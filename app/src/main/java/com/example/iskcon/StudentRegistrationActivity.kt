@@ -187,34 +187,6 @@ class StudentRegistrationActivity : AppCompatActivity() {
             name.error = "Enter name"
             return false
         }
-        if (emailStr.isEmpty()) {
-            email.error = "Enter email"
-            return false
-        }
-        if (addressStr.isEmpty()) {
-            address.error = "Enter address"
-            return false
-        }
-        if (collegeStr.isEmpty()) {
-            college.error = "Enter college"
-            return false
-        }
-        if (DOBStr.isEmpty()) {
-            DOB.error = "Enter DOB"
-            return false
-        }
-        if (instaStr.isEmpty()) {
-            insta.error = "Enter insta-id"
-            return false
-        }
-        if (educationStr.isEmpty()) {
-            education.error = "Enter education"
-            return false
-        }
-        if (occupationStr.isEmpty()) {
-            occupation.error = "Enter occupation"
-            return false
-        }
         if (mobile_number.isEmpty()) {
             number.error = "Enter Mobile Number"
             return false
