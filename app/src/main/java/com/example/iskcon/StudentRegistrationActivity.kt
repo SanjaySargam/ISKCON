@@ -13,6 +13,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import android.content.Intent
+import android.widget.ArrayAdapter
 import java.util.*
 
 class StudentRegistrationActivity : AppCompatActivity() {
@@ -46,6 +47,7 @@ class StudentRegistrationActivity : AppCompatActivity() {
         phone2 = findViewById(R.id.etPhone2)
         addBtn = findViewById(R.id.btnAdd)
         mediaPlayer = MediaPlayer.create(this, R.raw.sound)
+
 
         progressDialog = Dialog(this)
         progressDialog!!.setContentView(R.layout.dialog_layout)
@@ -90,6 +92,8 @@ class StudentRegistrationActivity : AppCompatActivity() {
                 val educationStr = education.text.toString()
                 val occupationStr = occupation.text.toString()
                 val phone2Str = phone2.text.toString()
+
+
 
                 // Show the splash screen
                 val intent = Intent(this, ticksplashscreen::class.java)
@@ -187,32 +191,8 @@ class StudentRegistrationActivity : AppCompatActivity() {
             name.error = "Enter name"
             return false
         }
-        if (emailStr.isEmpty()) {
-            email.error = "Enter email"
-            return false
-        }
-        if (addressStr.isEmpty()) {
-            address.error = "Enter address"
-            return false
-        }
-        if (collegeStr.isEmpty()) {
-            college.error = "Enter college"
-            return false
-        }
         if (DOBStr.isEmpty()) {
             DOB.error = "Enter DOB"
-            return false
-        }
-        if (instaStr.isEmpty()) {
-            insta.error = "Enter insta-id"
-            return false
-        }
-        if (educationStr.isEmpty()) {
-            education.error = "Enter education"
-            return false
-        }
-        if (occupationStr.isEmpty()) {
-            occupation.error = "Enter occupation"
             return false
         }
         if (mobile_number.isEmpty()) {
