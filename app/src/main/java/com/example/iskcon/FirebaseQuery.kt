@@ -1,7 +1,6 @@
 package com.example.iskcon
 
 import android.content.ContentValues.TAG
-import android.text.Editable
 import android.util.ArrayMap
 import android.util.Log
 import com.google.android.gms.tasks.OnFailureListener
@@ -43,10 +42,12 @@ object FirebaseQuery {
             firestore?.collection("STUDENTS")?.document(
                 number
             )
-
+        val countDoc: DocumentReference =
+            firestore!!.collection("TOTAL_STUDENTS")
+                .document("COUNT")
         val batch: WriteBatch? = firestore?.batch()
         batch?.set(userDoc!!, devoteeData)
-
+        batch?.update(countDoc, "TOTAL", FieldValue.increment(1))
         batch?.commit()?.addOnSuccessListener {
             completeListener.onSuccess()
 
@@ -196,6 +197,9 @@ object FirebaseQuery {
     interface FirestoreCallback2 {
         fun onDataReceived(data: Student)
     }
+    interface FirestoreCallback3 {
+        fun onDataReceived(data:Int)
+    }
 
     fun getName(no: String, callback: FirestoreCallback, completeListener: MyCompleteListener) {
         val myCollectionRef = firestore?.collection("STUDENTS")?.document(no)
@@ -267,6 +271,21 @@ object FirebaseQuery {
             ?.addOnFailureListener {
                 completeListener.onFailure()
             }
+    }
+    fun getTotal(callback: FirestoreCallback3,completeListener: MyCompleteListener):Int{
+        var count=0
+        firestore?.collection("TOTAL_STUDENTS")
+            ?.document("COUNT")
+            ?.get()
+            ?.addOnSuccessListener {
+                count = it.getLong("TOTAL").toString().toInt()
+                callback.onDataReceived(count)
+                completeListener.onSuccess()
+            }
+            ?.addOnFailureListener {
+                completeListener.onFailure()
+            }
+        return count
     }
 
 
