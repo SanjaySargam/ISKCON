@@ -24,6 +24,7 @@ object FirebaseQuery {
         education: String,
         occupation: String,
         phone2: String,
+        location:String,
         completeListener: MyCompleteListener
     ) {
         val devoteeData: MutableMap<String, Any> = ArrayMap()
@@ -37,15 +38,22 @@ object FirebaseQuery {
         devoteeData["EDUCATION"] = education
         devoteeData["OCCUPATION"] = occupation
         devoteeData["PHONE2"] = phone2
+        val batch: WriteBatch? = firestore?.batch()
 
         val userDoc: DocumentReference? =
             firestore?.collection("STUDENTS")?.document(
                 number
             )
+        if (location!="Others" && location.isNotEmpty()) {
+            val userDoc1: DocumentReference? =
+                firestore?.collection(location)?.document(
+                    number
+                )
+            batch?.set(userDoc1!!, devoteeData)
+        }
         val countDoc: DocumentReference =
             firestore!!.collection("TOTAL_STUDENTS")
                 .document("COUNT")
-        val batch: WriteBatch? = firestore?.batch()
         batch?.set(userDoc!!, devoteeData)
         batch?.update(countDoc, "TOTAL", FieldValue.increment(1))
         batch?.commit()?.addOnSuccessListener {

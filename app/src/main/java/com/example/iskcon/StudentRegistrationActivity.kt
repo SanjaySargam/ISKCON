@@ -2,17 +2,19 @@ package com.example.iskcon
 
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.content.Intent
 import android.media.MediaPlayer
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
+import android.util.Log
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import android.content.Intent
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import java.util.*
 
 class StudentRegistrationActivity : AppCompatActivity() {
@@ -30,6 +32,7 @@ class StudentRegistrationActivity : AppCompatActivity() {
     private var progressDialog: Dialog? = null
     private var dialogText: TextView? = null
     private lateinit var mediaPlayer: MediaPlayer
+    private lateinit var location: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +59,36 @@ class StudentRegistrationActivity : AppCompatActivity() {
         dialogText = progressDialog!!.findViewById(R.id.dialog_text)
         dialogText!!.setText("Registering Student")
 
+        val options = arrayOf("Bhiwandi", "Kalyan", "Others")
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Select a Location")
+        builder.setItems(options) { _, which ->
+            when (options[which]) {
+                "Bhiwandi" -> {
+                    // Perform action for Bhiwandi option
+                    location = "BHIWANDI"
+                    Log.i("dfdfg",location)
+                }
+                "Kalyan" -> {
+                    // Perform action for Kalyan option
+                    location = "KALYAN"
+                    Log.i("dfdfg",location)
+
+                }
+                "Others" -> {
+                    // Perform action for Others option
+                    location = "OTHERS"
+                    Log.i("dfdfg",location)
+
+                }
+            }
+        }
+
+        val dialog = builder.create()
+        dialog.show()
+
+
         dob.setOnClickListener {
             val calendar = Calendar.getInstance()
             val year = calendar.get(Calendar.YEAR)
@@ -78,6 +111,7 @@ class StudentRegistrationActivity : AppCompatActivity() {
         }
 
         addBtn.setOnClickListener {
+            Log.i("dsgsdf",location)
             if (validate(name, email, phone, address, college, dob, insta, education, occupation)) {
                 progressDialog!!.show()
                 val devoteeName = name.text.toString()
@@ -91,10 +125,6 @@ class StudentRegistrationActivity : AppCompatActivity() {
                 val occupationStr = occupation.text.toString()
                 val phone2Str = phone2.text.toString()
 
-                // Show the splash screen
-                val intent = Intent(this, ticksplashscreen::class.java)
-                startActivity(intent)
-
                 FirebaseQuery.createStudent(
                     devoteeName,
                     emailStr,
@@ -106,6 +136,7 @@ class StudentRegistrationActivity : AppCompatActivity() {
                     educationStr,
                     occupationStr,
                     phone2Str,
+                    location,
                     object : MyCompleteListener {
                         override fun onSuccess() {
                             clear(
@@ -135,6 +166,8 @@ class StudentRegistrationActivity : AppCompatActivity() {
                                     override fun onSuccess() {
                                         progressDialog!!.dismiss()
                                         mediaPlayer.start()
+                                        val intent = Intent(this@StudentRegistrationActivity, ticksplashscreen::class.java)
+                                        startActivity(intent)
                                         Toast.makeText(
                                             baseContext,
                                             "New Student Added Successfully",
