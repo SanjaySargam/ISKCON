@@ -44,7 +44,7 @@ object FirebaseQuery {
             firestore?.collection("STUDENTS")?.document(
                 number
             )
-        if (location!="Others" && location.isNotEmpty()) {
+        if (location!="OTHERS" && location.isNotEmpty()) {
             val userDoc1: DocumentReference? =
                 firestore?.collection(location)?.document(
                     number
