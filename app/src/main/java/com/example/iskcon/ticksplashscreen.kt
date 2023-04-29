@@ -20,9 +20,6 @@ class ticksplashscreen : AppCompatActivity() {
             // Stop the sound effect
             mediaPlayer.stop()
             mediaPlayer.release()
-
-            val intent = Intent(this, StudentRegistrationActivity::class.java)
-            startActivity(intent)
             finish()
         },3000)
     }
