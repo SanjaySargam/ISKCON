@@ -133,7 +133,7 @@ class TakeAttendanceActivity : AppCompatActivity() {
         saveBtn.setOnClickListener {
             if (validate()) {
                 val attendanceRecord = AttendanceRecord(
-                    selectedItem,
+                    studentNo.toString(),
                     studentName.text.toString(),
                     isPresentCheckBox.isChecked
                 )
