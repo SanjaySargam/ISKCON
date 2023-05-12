@@ -58,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         categories.add("Take Attendance")
         categories.add("Attendance Record")
         categories.add("Feedback")
+        categories.add("Pending Student Details")
         setRecyclerView()
         getTotalStudents()
     }

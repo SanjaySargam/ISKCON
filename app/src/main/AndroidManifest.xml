@@ -19,6 +19,9 @@
         android:theme="@style/Theme.ISKCON"
         tools:targetApi="31">
         <activity
+            android:name=".PendingActivity"
+            android:exported="false" />
+        <activity
             android:name=".feedbacksplash2"
             android:exported="false" />
         <activity
