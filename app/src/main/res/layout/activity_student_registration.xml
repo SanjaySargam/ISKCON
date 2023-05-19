@@ -42,12 +42,11 @@
             android:hint="Mobile Number"
             android:inputType="number"
             />
-        <EditText
+        <Spinner
             android:id="@+id/etAddress"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Address(Optional)"
-            android:inputType="text"
+            android:layout_height="40dp"
+            android:hint="Address"
             />
         <EditText
             android:id="@+id/etCollege"
@@ -60,7 +59,7 @@
             android:id="@+id/etDOB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="DOB(Optional)"
+            android:hint="DOB"
             android:inputType="date"
             />
         <EditText
@@ -70,19 +69,11 @@
             android:hint="Instagram Id(Optional)"
             android:inputType="text"
             />
-        <EditText
-            android:id="@+id/etEducation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Education(Optional)"
-            android:inputType="text"
-            />
-        <EditText
+        <Spinner
             android:id="@+id/etOccupation"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Occupation(Optional)"
-            android:inputType="text"
+            android:layout_height="40dp"
+            android:hint="Occupation"
             />
         <EditText
             android:id="@+id/etPhone2"
