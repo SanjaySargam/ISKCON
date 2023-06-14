@@ -22,6 +22,9 @@
             android:name=".PendingActivity"
             android:exported="false" />
         <activity
+            android:name=".StudentPendingRegistration"
+            android:exported="false" />
+        <activity
             android:name=".feedbacksplash2"
             android:exported="false" />
         <activity

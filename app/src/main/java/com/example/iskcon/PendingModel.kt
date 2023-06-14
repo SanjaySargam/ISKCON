@@ -28,7 +28,7 @@ abstract class PendingModel(private val context: Context) :
         holder.pendingDetails.text = pendingRecord.pending.toString()
 
         holder.cardView.setOnClickListener {
-            val intent = Intent(context, StudentRegistrationActivity::class.java)
+            val intent = Intent(context, StudentPendingRegistration::class.java)
             intent.putExtra("Number", pendingRecord.studentNo)
             context.startActivity(intent)
         }
