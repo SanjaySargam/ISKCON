@@ -205,6 +205,9 @@ object FirebaseQuery {
     interface FirestoreCallback2 {
         fun onDataReceived(data: Student)
     }
+    interface FirestoreCallback4 {
+        fun onDataReceived(data: List<PendingDetails>)
+    }
     interface FirestoreCallback3 {
         fun onDataReceived(data:Int)
     }
@@ -294,6 +297,66 @@ object FirebaseQuery {
                 completeListener.onFailure()
             }
         return count
+    }
+    fun getAllStudentDetails(
+        callback: FirestoreCallback4,
+        completeListener: MyCompleteListener
+    ){
+        val data= ArrayList<PendingDetails>()
+        firestore?.collection("STUDENTS")
+            ?.get()
+            ?.addOnSuccessListener { query ->
+                for (document in query.documents) {
+                    val name = document.getString("NAME").toString()
+                    val no = document.getString("PHONE").toString()
+                    val address = document.getString("ADDRESS").toString()
+                    val college = document.getString("COLLEGE").toString()
+                    val dob = document.getString("DOB").toString()
+                    val education = document.getString("EDUCATION").toString()
+                    val email = document.getString("EMAIL-ID").toString()
+                    val insta = document.getString("INSTA-ID").toString()
+                    val occupation = document.getString("OCCUPATION").toString()
+                    val details=ArrayList<String>()
+                    if (address==""){
+                        details.add("address")
+                    }
+                    if (college==""){
+                        details.add("college")
+                    }
+                    if (dob==""){
+                        details.add("dob")
+                    }
+                    if (education==""){
+                        details.add("education")
+                    }
+                    if (email==""){
+                        details.add("email")
+                    }
+                    if (insta==""){
+                        details.add("insta")
+                    }
+                    if (occupation==""){
+                        details.add("occupation")
+                    }
+                    if(details.isNotEmpty()){
+                        data.add(
+                            PendingDetails(
+                                name,
+                                no,
+                                details
+                            )
+                        )
+                    }
+                }
+                callback.onDataReceived(
+                    data
+                )
+                completeListener.onSuccess()
+            }
+            ?.addOnFailureListener { exception ->
+                // Handle any errors that occur
+                completeListener.onFailure()
+            }
     }
 
 

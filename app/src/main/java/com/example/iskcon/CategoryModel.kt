@@ -37,10 +37,17 @@ abstract class CategoryModel(private val context: Context) :
                 moveToAttendanceRecord()
             } else if (data == "Feedback") {
                 moveTofeedbacksplash2()
+            } else if (data == "Pending Student Details") {
+                moveToPendingDetails()
             }
         }
 
 
+    }
+
+    fun moveToPendingDetails() {
+        val intent = Intent(context, PendingActivity::class.java)
+        context.startActivity(intent)
     }
 
     fun moveToAttendanceRecord() {
