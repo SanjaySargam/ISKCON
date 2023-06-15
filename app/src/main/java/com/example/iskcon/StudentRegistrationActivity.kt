@@ -18,12 +18,12 @@ class StudentRegistrationActivity : AppCompatActivity() {
     private lateinit var name: EditText
     private lateinit var email: EditText
     private lateinit var phone: EditText
-    private lateinit var address: Spinner
+    private lateinit var address: EditText
     private lateinit var college: EditText
     private lateinit var dob: EditText
     private lateinit var insta: EditText
     private lateinit var education: EditText
-    private lateinit var occupation: Spinner
+    private lateinit var occupation: EditText
     private lateinit var phone2: EditText
     private lateinit var addBtn: Button
     private var progressDialog: Dialog? = null
@@ -41,6 +41,7 @@ class StudentRegistrationActivity : AppCompatActivity() {
         college = findViewById(R.id.etCollege)
         dob = findViewById(R.id.etDOB)
         insta = findViewById(R.id.etInsta)
+        education = findViewById(R.id.etEducation)
         occupation = findViewById(R.id.etOccupation)
         phone2 = findViewById(R.id.etPhone2)
         addBtn = findViewById(R.id.btnAdd)
@@ -84,28 +85,6 @@ class StudentRegistrationActivity : AppCompatActivity() {
         val dialog = builder.create()
         dialog.show()
 
-        val spinnerAdapter1 =
-            ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mutableListOf())
-        spinnerAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerAdapter1.add("Select Address")
-        spinnerAdapter1.add("Kamatghar")
-        spinnerAdapter1.add("Dhamankar Naka")
-        spinnerAdapter1.add("Bhandari Compound")
-        spinnerAdapter1.add("Mansarovar")
-        address.adapter = spinnerAdapter1
-        address.setSelection(0)
-
-        val spinnerAdapter2=
-            ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, mutableListOf())
-        spinnerAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinnerAdapter2.add("Select Occupation")
-        spinnerAdapter2.add("Student")
-        spinnerAdapter2.add("Job")
-        occupation.adapter = spinnerAdapter2
-        occupation.setSelection(0)
-
-
-
         dob.setOnClickListener {
             val calendar = Calendar.getInstance()
             val year = calendar.get(Calendar.YEAR)
@@ -129,17 +108,17 @@ class StudentRegistrationActivity : AppCompatActivity() {
 
         addBtn.setOnClickListener {
             Log.i("dsgsdf",location)
-            if (validate(name, email, phone, address, college, dob, insta, occupation)) {
+            if (validate(name, email, phone, address, college, dob, insta,education, occupation)) {
                 progressDialog!!.show()
                 val devoteeName = name.text.toString()
                 val emailStr = email.text.toString()
                 val mobile_number = phone.text.toString()
-                val addressStr = address.selectedItem.toString()
+                val addressStr = address.text.toString()
                 val collegeStr = college.text.toString()
                 val DOBStr = dob.text.toString()
                 val instaStr = insta.text.toString()
                 val educationStr = education.text.toString()
-                val occupationStr = occupation.selectedItem.toString()
+                val occupationStr = occupation.text.toString()
                 val phone2Str = phone2.text.toString()
 
                 FirebaseQuery.createStudent(
@@ -217,29 +196,24 @@ class StudentRegistrationActivity : AppCompatActivity() {
         name: EditText,
         email: EditText,
         number: EditText,
-        address: Spinner,
+        address: EditText,
         college: EditText,
         DOB: EditText,
         insta: EditText,
-        occupation: Spinner
+        education: EditText,
+        occupation: EditText
     ): Boolean {
         val devoteeName = name.text.toString()
         val emailStr = email.text.toString()
         val mobile_number = number.text.toString()
-        val addressStr = address.selectedItem.toString()
+        val addressStr = address.text.toString()
+        val collegeStr = college.text.toString()
         val DOBStr = DOB.text.toString()
         val instaStr = insta.text.toString()
-        val occupationStr = occupation.selectedItem.toString()
+        val educationStr = education.text.toString()
+        val occupationStr = occupation.text.toString()
         if (devoteeName.isEmpty()) {
             name.error = "Enter name"
-            return false
-        }
-        if (occupationStr.isEmpty()) {
-            name.error = "Select occupation"
-            return false
-        }
-        if (addressStr.isEmpty()) {
-            name.error = "Select Address"
             return false
         }
         if (mobile_number.isEmpty()) {
@@ -250,10 +224,6 @@ class StudentRegistrationActivity : AppCompatActivity() {
             number.error = "Enter Valid Mobile Number"
             return false
         }
-        if (DOBStr.isEmpty()) {
-            dob.error = "Enter DOB"
-            return false
-        }
         return true
     }
 
@@ -261,23 +231,23 @@ class StudentRegistrationActivity : AppCompatActivity() {
         name: EditText,
         email: EditText,
         number: EditText,
-        address: Spinner,
+        address: EditText,
         college: EditText,
         DOB: EditText,
         insta: EditText,
         education: EditText,
-        occupation: Spinner,
+        occupation: EditText,
         phone2: EditText
     ) {
         name.text.clear()
         number.text.clear()
         email.text.clear()
-        address.setSelection(0)
+        address.text.clear()
         college.text.clear()
         DOB.text.clear()
         insta.text.clear()
         education.text.clear()
-        occupation.setSelection(0)
+        occupation.text.clear()
         phone2.text.clear()
     }
 
